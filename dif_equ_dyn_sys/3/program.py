@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("parameters", nargs = "?", default = "params", type = str,
-                    help = "Name of parameters file.\n\nYAML file with entries: rainy, nice, cloudy, steps.",)
+                    help = "YAML file with entries: rainy, nice, cloudy, steps. First 3 entries are booleans defining today's weather, with 1 true and 2 false. Last entry is number of steps in the loop.",)
 parser.add_argument("-d", "--display", action = "store_true",
                     help = "Display plots of time against probability for the 3 weather conditions.")
 args = parser.parse_args()

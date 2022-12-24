@@ -5,14 +5,12 @@ import matplotlib.pyplot as plt
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-p", "--parameters", action = "store_true",
+parser.add_argument("parameters", nargs = "?", default = "params", type = str,
                     help = "Name of parameters file.\n\nYAML file with entries: rainy, nice, cloudy, steps.",)
+parser.add_argument("-d", "--display", action = "store_true",
+                    help = "Display plots of time against probability for the 3 weather conditions.")
 args = parser.parse_args()
-if not args.parameters:
-    file_name = "params"
-else:
-    file_name = args.parameters
-with open(file_name + ".yaml", "r") as file:
+with open(args.parameters + ".yaml", "r") as file:
         params = yaml.safe_load(file)
 
 
@@ -38,26 +36,28 @@ print("Probabilities via iteration\t:\t{}".format(weather[:, -1]))
 print("Probabilities via eigenvector\t:\t{}".format(probabilities))
 
 
-fig = plt.figure(figsize = (8, 4), tight_layout = True)
-gs = fig.add_gridspec(3, 2)
+if args.display:
 
-fig.add_subplot(111, frameon = False)
-plt.tick_params(labelcolor = "none", which = "both",
-                top = False, bottom = False,
-                left = False, right = False)
-plt.xlabel("Time (days)")
-plt.ylabel("Probability")
+    fig = plt.figure(figsize = (8, 4), tight_layout = True)
+    gs = fig.add_gridspec(3, 2)
 
-titles = ["Rainy", "Nice", "Cloudy"]
-for i in range(3):
-    ax = fig.add_subplot(gs[i, 0])
-    ax.plot(weather[i, :])
-    ax.set_title(titles[i])
-    ax.label_outer()
+    fig.add_subplot(111, frameon = False)
+    plt.tick_params(labelcolor = "none", which = "both",
+                    top = False, bottom = False,
+                    left = False, right = False)
+    plt.xlabel("Time (days)")
+    plt.ylabel("Probability")
 
-ax = fig.add_subplot(gs[:, 1])
-ax.plot(weather.T)
-ax.grid(True)
-ax.legend(titles)
+    titles = ["Rainy", "Nice", "Cloudy"]
+    for i in range(3):
+        ax = fig.add_subplot(gs[i, 0])
+        ax.plot(weather[i, :])
+        ax.set_title(titles[i])
+        ax.label_outer()
 
-plt.show()
+    ax = fig.add_subplot(gs[:, 1])
+    ax.plot(weather.T)
+    ax.grid(True)
+    ax.legend(titles)
+
+    plt.show()

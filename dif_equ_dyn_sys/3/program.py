@@ -1,7 +1,12 @@
+import os
 import argparse
 import yaml
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+#https://stackoverflow.com/questions/4060221/how-to-reliably-open-a-file-in-the-same-directory-as-the-currently-running-scrip
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 
 parser = argparse.ArgumentParser()
@@ -10,7 +15,7 @@ parser.add_argument("parameters", nargs = "?", default = "params", type = str,
 parser.add_argument("-d", "--display", action = "store_true",
                     help = "Display plots of time against probability for the 3 weather conditions.")
 args = parser.parse_args()
-with open(args.parameters + ".yaml", "r") as file:
+with open(os.path.join(__location__, args.parameters + ".yaml"), "r") as file:
         params = yaml.safe_load(file)
 
 

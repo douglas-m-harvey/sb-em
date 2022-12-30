@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "sb-em"
+version = "0.1.0"
+description = "Examples from Steve Brunton's Engineering Maths lectures."
+authors = ["Douglas Harvey <46091998+douglas-m-harvey@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "sb_em"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+notebook = "^6.5.2"
+numpy = "^1.24.1"
+matplotlib = "^3.6.2"
+PyYAML = "^6.0"
+
+[tool.poetry.group.dev.dependencies]
+notebook = "^6.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

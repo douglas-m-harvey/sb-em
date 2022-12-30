@@ -1,3 +1,6 @@
+# Poetry files
+poetry.lock
+
 # Parameter files
 **/params.yaml
 

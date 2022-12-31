@@ -1,4 +1,5 @@
 import os
+import shutil
 import argparse
 import yaml
 import numpy as np
@@ -7,6 +8,10 @@ import matplotlib.pyplot as plt
 
 #https://stackoverflow.com/questions/4060221/how-to-reliably-open-a-file-in-the-same-directory-as-the-currently-running-scrip
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+if not os.path.exists(os.path.join(__location__, "params.yaml")):
+    shutil.copy(os.path.join(__location__, "templ_params.yaml"), os.path.join(__location__, "params.yaml"))
+    
 
 
 parser = argparse.ArgumentParser()
